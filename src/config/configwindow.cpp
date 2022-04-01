@@ -6,6 +6,7 @@
 #include "src/config/configresolver.h"
 #include "src/config/filenameeditor.h"
 #include "src/config/generalconf.h"
+#include "src/config/nextcloudconf.h"
 #include "src/config/shortcutswidget.h"
 #include "src/config/strftimechooserwidget.h"
 #include "src/config/visualseditor.h"
@@ -79,6 +80,15 @@ ConfigWindow::ConfigWindow(QWidget* parent)
     m_tabWidget->addTab(
       m_generalConfigTab, QIcon(modifier + "config.svg"), tr("General"));
 
+    // nextcloud
+    m_nextcloudConfig = new NextcloudConf();
+    m_nextcloudConfigTab = new QWidget();
+    QVBoxLayout* nextcloudConfigLayout = new QVBoxLayout(m_nextcloudConfigTab);
+    m_nextcloudConfigTab->setLayout(nextcloudConfigLayout);
+    nextcloudConfigLayout->addWidget(m_nextcloudConfig);
+    m_tabWidget->addTab(
+      m_nextcloudConfigTab, QIcon(modifier + "nextcloud.svg"), tr("Nextcloud"));
+
     // shortcuts
     m_shortcuts = new ShortcutsWidget();
     m_shortcutsTab = new QWidget();
@@ -101,11 +111,16 @@ ConfigWindow::ConfigWindow(QWidget* parent)
             &ConfigWindow::updateChildren,
             m_generalConfig,
             &GeneralConf::updateComponents);
+    connect(this,
+            &ConfigWindow::updateChildren,
+            m_nextcloudConfig,
+            &NextcloudConf::updateComponents);
 
     // Error indicator (this must come last)
     initErrorIndicator(m_visualsTab, m_visuals);
     initErrorIndicator(m_filenameEditorTab, m_filenameEditor);
     initErrorIndicator(m_generalConfigTab, m_generalConfig);
+    initErrorIndicator(m_nextcloudConfigTab, m_nextcloudConfig);
     initErrorIndicator(m_shortcutsTab, m_shortcuts);
 }
 

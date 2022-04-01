@@ -8,6 +8,7 @@ target_sources(
           extendedslider.cpp
           filenameeditor.cpp
           generalconf.cpp
+          nextcloudconf.cpp
           strftimechooserwidget.cpp
           styleoverride.cpp
           uicoloreditor.cpp
