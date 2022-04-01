@@ -47,10 +47,6 @@ private:
     const QString chooseFolder(const QString currentPath = "");
 
     void initScrollArea();
-    void initShowHelp();
-    void initShowSidePanelButton();
-    void initShowDesktopNotification();
-    void initShowTrayIcon();
     void initHistoryConfirmationToDelete();
     void inituploadHistoryMax();
     void initUndoLimit();
@@ -75,7 +71,6 @@ private:
     QVBoxLayout* m_scrollAreaLayout;
     QScrollArea* m_scrollArea;
     QCheckBox* m_sysNotifications;
-    QCheckBox* m_showTray;
     QCheckBox* m_helpMessage;
     QCheckBox* m_sidePanelButton;
     QCheckBox* m_checkForUpdates;

@@ -30,72 +30,18 @@ NextcloudConf::NextcloudConf(QWidget* parent)
     m_layout = new QVBoxLayout(this);
     m_layout->setAlignment(Qt::AlignTop);
 
-    // Scroll area adapts the size of the content on small screens.
-    // It must be initialized before the checkboxes.
-    initScrollArea();
-
-    //initShowHelp();
-    //initShowSidePanelButton();
-    //initShowDesktopNotification();
-    //initShowTrayIcon();
-    //initHistoryConfirmationToDelete();
-    initCheckForUpdates();
-    initAutostart();
-    initShowStartupLaunchMessage();
-    initCopyAndCloseAfterUpload();
-    initCopyPathAfterSave();
-    initAntialiasingPinZoom();
-    initUploadWithoutConfirmation();
-    initUseJpgForClipboard();
-    initSaveAfterCopy();
     inituploadHistoryMax();
-    initUndoLimit();
-    initAllowMultipleGuiInstances();
-#if !defined(Q_OS_WIN)
-    initAutoCloseIdleDaemon();
-#endif
-    initPredefinedColorPaletteLarge();
 
     m_layout->addStretch();
 
-    // this has to be at the end
-    initConfigButtons();
     updateComponents();
 }
 
 void NextcloudConf::_updateComponents(bool allowEmptySavePath)
 {
     ConfigHandler config;
-    //m_helpMessage->setChecked(config.showHelp());
-    //m_sidePanelButton->setChecked(config.showSidePanelButton());
-    //m_sysNotifications->setChecked(config.showDesktopNotification());
-    m_autostart->setChecked(config.startupLaunch());
-    m_copyAndCloseAfterUpload->setChecked(config.copyAndCloseAfterUpload());
-    m_saveAfterCopy->setChecked(config.saveAfterCopy());
-    m_copyPathAfterSave->setChecked(config.copyPathAfterSave());
-    m_antialiasingPinZoom->setChecked(config.antialiasingPinZoom());
-    m_useJpgForClipboard->setChecked(config.useJpgForClipboard());
-    m_uploadWithoutConfirmation->setChecked(config.uploadWithoutConfirmation());
-    //m_historyConfirmationToDelete->setChecked(
-      //config.historyConfirmationToDelete());
-    m_checkForUpdates->setChecked(config.checkForUpdates());
-    m_allowMultipleGuiInstances->setChecked(config.allowMultipleGuiInstances());
 
-#if !defined(Q_OS_WIN)
-    m_autoCloseIdleDaemon->setChecked(config.autoCloseIdleDaemon());
-#endif
-
-    m_showStartupLaunchMessage->setChecked(config.showStartupLaunchMessage());
-    m_screenshotPathFixedCheck->setChecked(config.savePathFixed());
     m_uploadHistoryMax->setValue(config.uploadHistoryMax());
-    m_undoLimit->setValue(config.undoLimit());
-
-    if (allowEmptySavePath || !config.savePath().isEmpty()) {
-        m_savePath->setText(config.savePath());
-    }
-#if defined(Q_OS_LINUX) || defined(Q_OS_UNIX)
-    //m_showTray->setChecked(!config.disabledTrayIcon());
-#endif
 }
 
 void NextcloudConf::updateComponents()
@@ -217,55 +163,6 @@ void NextcloudConf::initScrollArea()
       "#content, #scrollArea { background: transparent; border: 0px; }");
     m_scrollAreaLayout = new QVBoxLayout(content);
     m_scrollAreaLayout->setContentsMargins(0, 0, 20, 0);
-}
-
-void NextcloudConf::initShowHelp()
-{
-    m_helpMessage = new QCheckBox(tr("Show help message"), this);
-    m_helpMessage->setToolTip(tr("Show the help message at the beginning "
-                                 "in the capture mode."));
-    m_scrollAreaLayout->addWidget(m_helpMessage);
-
-    connect(
-      m_helpMessage, &QCheckBox::clicked, this, &NextcloudConf::showHelpChanged);
-}
-
-void NextcloudConf::initShowSidePanelButton()
-{
-    m_sidePanelButton = new QCheckBox(tr("Show the side panel button"), this);
-    m_sidePanelButton->setToolTip(
-      tr("Show the side panel toggle button in the capture mode."));
-    m_scrollAreaLayout->addWidget(m_sidePanelButton);
-
-    connect(m_sidePanelButton,
-            &QCheckBox::clicked,
-            this,
-            &NextcloudConf::showSidePanelButtonChanged);
-}
-
-void NextcloudConf::initShowDesktopNotification()
-{
-    m_sysNotifications = new QCheckBox(tr("Show desktop notifications"), this);
-    m_sysNotifications->setToolTip(tr("Show desktop notifications"));
-    m_scrollAreaLayout->addWidget(m_sysNotifications);
-
-    connect(m_sysNotifications,
-            &QCheckBox::clicked,
-            this,
-            &NextcloudConf::showDesktopNotificationChanged);
-}
-
-void NextcloudConf::initShowTrayIcon()
-{
-#if defined(Q_OS_LINUX) || defined(Q_OS_UNIX)
-    m_showTray = new QCheckBox(tr("Show tray icon"), this);
-    m_showTray->setToolTip(tr("Show the systemtray icon"));
-    m_scrollAreaLayout->addWidget(m_showTray);
-
-    connect(m_showTray, &QCheckBox::clicked, this, [](bool checked) {
-        ConfigHandler().setDisabledTrayIcon(!checked);
-    });
-#endif
 }
 
 void NextcloudConf::initHistoryConfirmationToDelete()
