@@ -31,6 +31,7 @@ NextcloudConf::NextcloudConf(QWidget* parent)
     m_layout->setAlignment(Qt::AlignTop);
 
     inituploadHistoryMax();
+	initCredentials();
 
     m_layout->addStretch();
 
@@ -371,6 +372,21 @@ void NextcloudConf::initSaveAfterCopy()
 void NextcloudConf::historyConfirmationToDelete(bool checked)
 {
     ConfigHandler().setHistoryConfirmationToDelete(checked);
+}
+
+void NextcloudConf::initCredentials()
+{
+	QGroupBox* box = new QGroupBox(tr("Nextcloud Credentials"));
+	box->setFlat(true);
+	m_layout->addWidget(box);
+
+    QVBoxLayout* vboxLayout = new QVBoxLayout();
+    box->setLayout(vboxLayout);
+
+	QString login = "azazaza";
+	m_nextcloudLogin = new QLineEdit(login, this);
+
+	vboxLayout->addWidget(m_nextcloudLogin);
 }
 
 void NextcloudConf::inituploadHistoryMax()

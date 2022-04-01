@@ -49,6 +49,7 @@ private:
     void initScrollArea();
     void initHistoryConfirmationToDelete();
     void inituploadHistoryMax();
+    void initCredentials();
     void initUndoLimit();
     void initConfigButtons();
     void initCheckForUpdates();
@@ -87,6 +88,7 @@ private:
     QPushButton* m_resetButton;
     QCheckBox* m_saveAfterCopy;
     QLineEdit* m_savePath;
+    QLineEdit* m_nextcloudLogin;
     QPushButton* m_changeSaveButton;
     QCheckBox* m_screenshotPathFixedCheck;
     QCheckBox* m_historyConfirmationToDelete;
