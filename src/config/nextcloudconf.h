@@ -42,6 +42,7 @@ private slots:
     void togglePathFixed();
     void useJpgForClipboardChanged(bool checked);
     void setSaveAsFileExtension(QString extension);
+    void changeNextcloudCredentials();
 
 private:
     const QString chooseFolder(const QString currentPath = "");
@@ -89,7 +90,9 @@ private:
     QCheckBox* m_saveAfterCopy;
     QLineEdit* m_savePath;
     QLineEdit* m_nextcloudLogin;
+    QLineEdit* m_nextcloudPassword;
     QPushButton* m_changeSaveButton;
+    QPushButton* m_saveButton;
     QCheckBox* m_screenshotPathFixedCheck;
     QCheckBox* m_historyConfirmationToDelete;
     QCheckBox* m_useJpgForClipboard;

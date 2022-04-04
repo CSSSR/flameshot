@@ -120,6 +120,8 @@ static QMap<class QString, QSharedPointer<ValueHandler>>
     OPTION("predefinedColorPaletteLarge", Bool               ( PREDEFINED_COLOR_PALETTE_LARGE )),
     // NOTE: If another tool size is added besides drawThickness and
     // drawFontSize, remember to update ConfigHandler::toolSize
+    OPTION("nextcloudLogin"              ,String             ( ""            )),
+    OPTION("nextcloudPassword"           ,String             ( ""            )),
 };
 
 static QMap<QString, QSharedPointer<KeySequence>> recognizedShortcuts = {

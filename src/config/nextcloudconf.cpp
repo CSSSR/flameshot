@@ -383,10 +383,33 @@ void NextcloudConf::initCredentials()
     QVBoxLayout* vboxLayout = new QVBoxLayout();
     box->setLayout(vboxLayout);
 
-	QString login = "azazaza";
+	QString login = ConfigHandler().nextcloudLogin();
 	m_nextcloudLogin = new QLineEdit(login, this);
 
+	QString password = ConfigHandler().nextcloudPassword();
+	m_nextcloudPassword = new QLineEdit(password, this);
+	m_nextcloudPassword->setEchoMode(QLineEdit::Password);
+
+    vboxLayout->addWidget(new QLabel(tr("Login:")));
 	vboxLayout->addWidget(m_nextcloudLogin);
+    vboxLayout->addWidget(new QLabel(tr("Password:")));
+	vboxLayout->addWidget(m_nextcloudPassword);
+
+    m_saveButton = new QPushButton(tr("Save"), this);
+    vboxLayout->addWidget(m_saveButton);
+	connect(m_saveButton,
+			&QPushButton::clicked,
+			this,
+			&NextcloudConf::changeNextcloudCredentials);
+}
+
+void NextcloudConf::changeNextcloudCredentials()
+{
+	QString login = m_nextcloudLogin->text();
+	ConfigHandler().setNextcloudLogin(login);
+
+	QString password = m_nextcloudPassword->text();
+	ConfigHandler().setNextcloudPassword(password);
 }
 
 void NextcloudConf::inituploadHistoryMax()
