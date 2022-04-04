@@ -70,16 +70,26 @@ void NextcloudUploader::upload()
     QString description = FileNameHandler().parsedPattern();
     urlQuery.addQueryItem(QStringLiteral("description"), description);
 
-    QUrl url(QStringLiteral("https://api.imgur.com/3/image"));
+	QString str("https://nextcloud.csssr.com/remote.php/dav/files/%1/%2/%3");
+
+	QUrl url(str
+			.arg(ConfigHandler().nextcloudLogin())
+			.arg("U0432AFRT")
+			.arg("name.jpg"));
+
     url.setQuery(urlQuery);
     QNetworkRequest request(url);
     request.setHeader(QNetworkRequest::ContentTypeHeader,
                       "application/application/x-www-form-urlencoded");
-    request.setRawHeader(
-      "Authorization",
-      QStringLiteral("Client-ID %1").arg(IMGUR_CLIENT_ID).toUtf8());
 
-    m_NetworkAM->post(request, byteArray);
+	QString username = ConfigHandler().nextcloudLogin();
+	QString password = ConfigHandler().nextcloudPassword();
+	QString concatenated = username + ":" + password;
+	QByteArray data = concatenated.toLocal8Bit().toBase64();
+	QString headerData = "Basic " + data;
+	request.setRawHeader("Authorization", headerData.toLocal8Bit());
+
+    m_NetworkAM->put(request, byteArray);
 }
 
 void NextcloudUploader::deleteImage(const QString& fileName,
