@@ -9,13 +9,14 @@
 // TODO - remove this hard-code and create plugin manager in the future, you may
 // include other storage headers here
 #include "storages/imgur/imguruploader.h"
+#include "storages/nextcloud/nextclouduploader.h"
 
 ImgUploaderManager::ImgUploaderManager(QObject* parent)
   : QObject(parent)
   , m_imgUploaderBase(nullptr)
 {
     // TODO - implement ImgUploader for other Storages and selection among them
-    m_imgUploaderPlugin = IMG_UPLOADER_STORAGE_DEFAULT;
+    m_imgUploaderPlugin = "nextcloud";
     init();
 }
 
@@ -29,8 +30,8 @@ void ImgUploaderManager::init()
     //    m_qstrUrl = "https://imgur.com/";
     //    m_imgUploaderPlugin = "imgur";
     //}
-    m_urlString = "https://imgur.com/";
-    m_imgUploaderPlugin = "imgur";
+    m_urlString = "https://nextcloud.csssr.com/";
+    m_imgUploaderPlugin = "nextcloud";
 }
 
 ImgUploaderBase* ImgUploaderManager::uploader(const QPixmap& capture,
@@ -45,7 +46,7 @@ ImgUploaderBase* ImgUploaderManager::uploader(const QPixmap& capture,
     //    m_imgUploaderBase =
     //      (ImgUploaderBase*)(new ImgurUploader(capture, parent));
     //}
-    m_imgUploaderBase = (ImgUploaderBase*)(new ImgurUploader(capture, parent));
+    m_imgUploaderBase = (ImgUploaderBase*)(new NextcloudUploader(capture, parent));
     if (m_imgUploaderBase && !capture.isNull()) {
         m_imgUploaderBase->upload();
     }

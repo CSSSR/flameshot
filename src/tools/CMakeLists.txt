@@ -9,7 +9,9 @@ target_sources(flameshot PRIVATE sizedecrease/sizedecreasetool.h sizedecrease/si
 target_sources(
   flameshot
         PRIVATE imgupload/storages/imgur/imguruploader.h
+        PRIVATE imgupload/storages/nextcloud/nextclouduploader.h
         imgupload/storages/imgur/imguruploader.cpp
+        imgupload/storages/nextcloud/nextclouduploader.cpp
         imgupload/storages/imguploaderbase.h
         imgupload/storages/imguploaderbase.cpp
         imgupload/imguploadertool.h
