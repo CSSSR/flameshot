@@ -117,6 +117,7 @@ public:
     CONFIG_GETTER_SETTER(buttons, setButtons, QList<CaptureTool::Type>)
     CONFIG_GETTER_SETTER(nextcloudLogin, setNextcloudLogin, QString)
     CONFIG_GETTER_SETTER(nextcloudPassword, setNextcloudPassword, QString)
+    CONFIG_GETTER_SETTER(nextcloudUid, setNextcloudUid, QString)
 
     // SPECIAL CASES
     bool startupLaunch();

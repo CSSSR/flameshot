@@ -122,6 +122,7 @@ static QMap<class QString, QSharedPointer<ValueHandler>>
     // drawFontSize, remember to update ConfigHandler::toolSize
     OPTION("nextcloudLogin"              ,String             ( ""            )),
     OPTION("nextcloudPassword"           ,String             ( ""            )),
+    OPTION("nextcloudUid"           ,String             ( ""            )),
 };
 
 static QMap<QString, QSharedPointer<KeySequence>> recognizedShortcuts = {

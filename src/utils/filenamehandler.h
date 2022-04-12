@@ -13,6 +13,7 @@ public:
 
     QString parsedPattern();
     QString parseFilename(const QString& name);
+    QString getRandomString();
 
     QString properScreenshotPath(QString filename,
                                  const QString& format = QString());

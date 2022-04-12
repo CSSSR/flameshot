@@ -35,7 +35,7 @@ void NextcloudUploader::handleReply(QNetworkReply* reply)
         QJsonDocument response = QJsonDocument::fromJson(reply->readAll());
         QJsonObject json = response.object();
         QJsonObject data = json[QStringLiteral("data")].toObject();
-        setImageURL(data[QStringLiteral("link")].toString());
+        //setImageURL(data[QStringLiteral("link")].toString());
 
         auto deleteToken = data[QStringLiteral("deletehash")].toString();
 
@@ -67,15 +67,15 @@ void NextcloudUploader::upload()
 
     QUrlQuery urlQuery;
     urlQuery.addQueryItem(QStringLiteral("title"), QStringLiteral(""));
-    QString description = FileNameHandler().parsedPattern();
-    urlQuery.addQueryItem(QStringLiteral("description"), description);
+    QString filename = FileNameHandler().parsedPattern();
 
-	QString str("https://nextcloud.csssr.com/remote.php/dav/files/%1/%2/%3");
+	QString str("https://nextcloud.csssr.com/remote.php/dav/files/%1/%2/%3.%4");
 
 	QUrl url(str
 			.arg(ConfigHandler().nextcloudLogin())
-			.arg("U0432AFRT")
-			.arg("name.jpg"));
+			.arg(ConfigHandler().nextcloudUid())
+			.arg(filename)
+			.arg(ConfigHandler().saveAsFileExtension()));
 
     url.setQuery(urlQuery);
     QNetworkRequest request(url);
@@ -88,6 +88,12 @@ void NextcloudUploader::upload()
 	QByteArray data = concatenated.toLocal8Bit().toBase64();
 	QString headerData = "Basic " + data;
 	request.setRawHeader("Authorization", headerData.toLocal8Bit());
+
+	QString publicUrl("https://nextcloud.csssr.com/%1/%2.%3");
+	setImageURL(publicUrl
+			.arg(ConfigHandler().nextcloudUid())
+			.arg(filename)
+			.arg(ConfigHandler().saveAsFileExtension()));
 
     m_NetworkAM->put(request, byteArray);
 }

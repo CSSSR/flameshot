@@ -30,7 +30,6 @@ NextcloudConf::NextcloudConf(QWidget* parent)
     m_layout = new QVBoxLayout(this);
     m_layout->setAlignment(Qt::AlignTop);
 
-    inituploadHistoryMax();
 	initCredentials();
 
     m_layout->addStretch();
@@ -42,7 +41,7 @@ void NextcloudConf::_updateComponents(bool allowEmptySavePath)
 {
     ConfigHandler config;
 
-    m_uploadHistoryMax->setValue(config.uploadHistoryMax());
+    //m_uploadHistoryMax->setValue(config.uploadHistoryMax());
 }
 
 void NextcloudConf::updateComponents()
@@ -390,10 +389,15 @@ void NextcloudConf::initCredentials()
 	m_nextcloudPassword = new QLineEdit(password, this);
 	m_nextcloudPassword->setEchoMode(QLineEdit::Password);
 
+	QString uid = ConfigHandler().nextcloudUid();
+	m_nextcloudUid = new QLineEdit(uid, this);
+
     vboxLayout->addWidget(new QLabel(tr("Login:")));
 	vboxLayout->addWidget(m_nextcloudLogin);
     vboxLayout->addWidget(new QLabel(tr("Password:")));
 	vboxLayout->addWidget(m_nextcloudPassword);
+    vboxLayout->addWidget(new QLabel(tr("Slack Id:")));
+	vboxLayout->addWidget(m_nextcloudUid);
 
     m_saveButton = new QPushButton(tr("Save"), this);
     vboxLayout->addWidget(m_saveButton);
@@ -410,6 +414,9 @@ void NextcloudConf::changeNextcloudCredentials()
 
 	QString password = m_nextcloudPassword->text();
 	ConfigHandler().setNextcloudPassword(password);
+
+	QString uid = m_nextcloudUid->text();
+	ConfigHandler().setNextcloudUid(uid);
 }
 
 void NextcloudConf::inituploadHistoryMax()
