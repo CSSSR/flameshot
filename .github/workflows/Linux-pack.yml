@@ -3,7 +3,7 @@ name: Packaging(Linux)
 on:
   push:
     branches:
-      - master
+      - nextcloud
     paths-ignore:
       - 'README.md'
       - 'LICENSE'
@@ -39,34 +39,10 @@ jobs:
               arch: amd64
             }
           - {
-              name: debian-10,
-              os: debian,
-              symbol: buster,
-              arch: arm64
-            }
-          - {
-              name: debian-10,
-              os: debian,
-              symbol: buster,
-              arch: armhf
-            }
-          - {
               name: debian-11,
               os: debian,
               symbol: bullseye,
               arch: amd64
-            }
-          - {
-              name: debian-11,
-              os: debian,
-              symbol: bullseye,
-              arch: arm64
-            }
-          - {
-              name: debian-11,
-              os: debian,
-              symbol: bullseye,
-              arch: armhf
             }
           - {
               name: ubuntu-20.04,
