@@ -92,6 +92,7 @@ private:
     QLineEdit* m_nextcloudLogin;
     QLineEdit* m_nextcloudPassword;
     QLineEdit* m_nextcloudUid;
+    QLineEdit* m_nextcloudDomain;
     QPushButton* m_changeSaveButton;
     QPushButton* m_saveButton;
     QCheckBox* m_screenshotPathFixedCheck;

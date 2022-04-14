@@ -123,6 +123,7 @@ static QMap<class QString, QSharedPointer<ValueHandler>>
     OPTION("nextcloudLogin"              ,String             ( ""            )),
     OPTION("nextcloudPassword"           ,String             ( ""            )),
     OPTION("nextcloudUid"           ,String             ( ""            )),
+    OPTION("nextcloudDomain"           ,String             ( "s.csssr.com"            )),
 };
 
 static QMap<QString, QSharedPointer<KeySequence>> recognizedShortcuts = {

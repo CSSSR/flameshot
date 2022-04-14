@@ -89,8 +89,9 @@ void NextcloudUploader::upload()
 	QString headerData = "Basic " + data;
 	request.setRawHeader("Authorization", headerData.toLocal8Bit());
 
-	QString publicUrl("https://nextcloud.csssr.com/%1/%2.%3");
+	QString publicUrl("https://%1/%2/%3.%4");
 	setImageURL(publicUrl
+			.arg(ConfigHandler().nextcloudDomain())
 			.arg(ConfigHandler().nextcloudUid())
 			.arg(filename)
 			.arg(ConfigHandler().saveAsFileExtension()));

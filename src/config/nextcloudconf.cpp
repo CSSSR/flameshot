@@ -392,12 +392,17 @@ void NextcloudConf::initCredentials()
 	QString uid = ConfigHandler().nextcloudUid();
 	m_nextcloudUid = new QLineEdit(uid, this);
 
+	QString domain = ConfigHandler().nextcloudDomain();
+	m_nextcloudDomain = new QLineEdit(domain, this);
+
     vboxLayout->addWidget(new QLabel(tr("Login:")));
 	vboxLayout->addWidget(m_nextcloudLogin);
     vboxLayout->addWidget(new QLabel(tr("Password:")));
 	vboxLayout->addWidget(m_nextcloudPassword);
     vboxLayout->addWidget(new QLabel(tr("Slack Id:")));
 	vboxLayout->addWidget(m_nextcloudUid);
+    vboxLayout->addWidget(new QLabel(tr("Domain:")));
+	vboxLayout->addWidget(m_nextcloudDomain);
 
     m_saveButton = new QPushButton(tr("Save"), this);
     vboxLayout->addWidget(m_saveButton);
@@ -417,6 +422,9 @@ void NextcloudConf::changeNextcloudCredentials()
 
 	QString uid = m_nextcloudUid->text();
 	ConfigHandler().setNextcloudUid(uid);
+
+	QString domain = m_nextcloudDomain->text();
+	ConfigHandler().setNextcloudDomain(domain);
 }
 
 void NextcloudConf::inituploadHistoryMax()

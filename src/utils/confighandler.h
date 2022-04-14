@@ -118,6 +118,7 @@ public:
     CONFIG_GETTER_SETTER(nextcloudLogin, setNextcloudLogin, QString)
     CONFIG_GETTER_SETTER(nextcloudPassword, setNextcloudPassword, QString)
     CONFIG_GETTER_SETTER(nextcloudUid, setNextcloudUid, QString)
+    CONFIG_GETTER_SETTER(nextcloudDomain, setNextcloudDomain, QString)
 
     // SPECIAL CASES
     bool startupLaunch();
