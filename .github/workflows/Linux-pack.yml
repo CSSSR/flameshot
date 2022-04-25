@@ -94,7 +94,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          ref: master
+          ref: nextcloud
       - name: Checkout Source code
         if: github.event_name == 'pull_request'
         uses: actions/checkout@v2
@@ -195,7 +195,7 @@ jobs:
         uses: actions/checkout@v1
         with:
           fetch-depth: 0
-          ref: master
+          ref: nextcloud
       - name: Checkout Source code
         if: github.event_name == 'pull_request'
         uses: actions/checkout@v1
@@ -303,7 +303,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          ref: master
+          ref: nextcloud
       - name: Checkout Source code
         if: github.event_name == 'pull_request'
         uses: actions/checkout@v2
@@ -417,7 +417,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          ref: master
+          ref: nextcloud
       - name: Checkout Source code
         if: github.event_name == 'pull_request'
         uses: actions/checkout@v2
@@ -527,7 +527,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          ref: master
+          ref: nextcloud
       - name: Checkout Source code
         if: github.event_name == 'pull_request'
         uses: actions/checkout@v2
@@ -559,7 +559,7 @@ jobs:
           MANIFEST_PATH=$GITHUB_WORKSPACE/packaging/flatpak/org.flameshot.Flameshot.yml
           RUNTIME_REPO="https://flathub.org/repo/flathub.flatpakrepo"
           APP_ID="org.flameshot.Flameshot"
-          BRANCH="master"
+          BRANCH="nextcloud"
 
           flatpak-builder --user --disable-rofiles-fuse --repo=repo --force-clean flatpak_app ${MANIFEST_PATH} --install-deps-from=flathub
           flatpak build-bundle repo ${BUNDLE} --runtime-repo=${RUNTIME_REPO} ${APP_ID} ${BRANCH}
@@ -593,7 +593,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          ref: master
+          ref: nextcloud
       - name: Checkout Source code
         if: github.event_name == 'pull_request'
         uses: actions/checkout@v2
