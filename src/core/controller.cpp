@@ -26,6 +26,7 @@
 #include "src/widgets/historywidget.h"
 #include "src/widgets/imguploaddialog.h"
 #include "src/widgets/infowindow.h"
+#include "src/widgets/loadspinner.h"
 #include <QAction>
 #include <QApplication>
 #include <QBuffer>
@@ -34,6 +35,7 @@
 #include <QDesktopServices>
 #include <QDesktopWidget>
 #include <QFile>
+#include <QFileDialog>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QMenu>
@@ -426,6 +428,56 @@ void Controller::openLauncherWindow()
 #endif
 }
 
+void Controller::uploadFile()
+{
+	QString f = QFileDialog::getOpenFileName(
+			nullptr,
+			"Open File to upload",
+			QDir::currentPath(),
+			"All files (*.*)");
+
+	if( !f.isNull() )
+	{
+		qDebug() << "selected file path : " << f.toUtf8();
+
+		QFile file(f);
+
+		QFileInfo fileInfo(file.fileName());
+		QString filename(fileInfo.fileName());
+
+		QString str("https://nextcloud.csssr.com/remote.php/dav/files/%1/%2/%3");
+
+		QUrl url(str
+				.arg(ConfigHandler().nextcloudLogin())
+				.arg(ConfigHandler().nextcloudUid())
+				.arg(filename));
+
+    	QNetworkRequest request(url);
+		request.setHeader(QNetworkRequest::ContentTypeHeader,
+			"application/application/x-www-form-urlencoded");
+
+		QString username = ConfigHandler().nextcloudLogin();
+		QString password = ConfigHandler().nextcloudPassword();
+		QString concatenated = username + ":" + password;
+		QByteArray data = concatenated.toLocal8Bit().toBase64();
+		QString headerData = "Basic " + data;
+		request.setRawHeader("Authorization", headerData.toLocal8Bit());
+
+		QString publicUrl("https://%1/%2/%3");
+
+		QApplication::clipboard()->setText(publicUrl
+				.arg(ConfigHandler().nextcloudDomain())
+				.arg(ConfigHandler().nextcloudUid())
+				.arg(filename));
+
+		if (!file.open(QIODevice::ReadOnly))
+        	return;
+
+    	m_NetworkAM = new QNetworkAccessManager(this);
+		m_NetworkAM->put(request, file.readAll());
+	}
+}
+
 void Controller::initTrayIcon()
 {
 #if defined(Q_OS_LINUX) || defined(Q_OS_UNIX)
@@ -471,6 +523,13 @@ void Controller::enableTrayIcon()
         doLater(400, this, [this]() { startVisualCapture(); });
 #endif
     });
+
+	QAction* uploadFileAction = new QAction("Upload File", this);
+	connect(uploadFileAction,
+			&QAction::triggered,
+			this,
+			&Controller::uploadFile);
+
     QAction* launcherAction = new QAction(tr("&Open Launcher"), this);
     connect(launcherAction,
             &QAction::triggered,
@@ -494,6 +553,7 @@ void Controller::enableTrayIcon()
 
     // generate menu
     m_trayIconMenu->addAction(captureAction);
+	m_trayIconMenu->addAction(uploadFileAction);
     m_trayIconMenu->addAction(launcherAction);
     m_trayIconMenu->addSeparator();
     m_trayIconMenu->addAction(recentAction);

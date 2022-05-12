@@ -55,6 +55,7 @@ public slots:
     void openInfoWindow();
     void appUpdates();
     void openLauncherWindow();
+	void uploadFile();
     // TODO move tray icon handling to FlameshotDaemon
     void initTrayIcon();
     void enableTrayIcon();
@@ -108,6 +109,7 @@ private:
     QMenu* m_trayIconMenu;
 
     QNetworkAccessManager* m_networkCheckUpdates;
+    QNetworkAccessManager* m_NetworkAM;
 #if (defined(Q_OS_MAC) || defined(Q_OS_MAC64) || defined(Q_OS_MACOS) ||        \
      defined(Q_OS_MACX))
     QHotkey* m_HotkeyScreenshotCapture;
