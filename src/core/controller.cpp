@@ -67,6 +67,7 @@ Controller::Controller()
   , m_networkCheckUpdates(nullptr)
   , m_showCheckAppUpdateStatus(false)
 #if defined(Q_OS_MACOS)
+  , m_HotkeyFileUpload(nullptr)
   , m_HotkeyScreenshotCapture(nullptr)
   , m_HotkeyScreenshotHistory(nullptr)
 #endif
@@ -76,10 +77,18 @@ Controller::Controller()
     QString StyleSheet = CaptureButton::globalStyleSheet();
     qApp->setStyleSheet(StyleSheet);
 
+
 #if defined(Q_OS_MACOS)
     // Try to take a test screenshot, MacOS will request a "Screen Recording"
     // permissions on the first run. Otherwise it will be hidden under the
     // CaptureWidget
+    m_HotkeyFileUpload = new QHotkey(
+      QKeySequence(ConfigHandler().shortcut("UPLOAD_FILE")), true, this);
+    QObject::connect(m_HotkeyFileUpload,
+                     &QHotkey::activated,
+                     qApp,
+                     [&]() { this->uploadFile(); });
+
     QScreen* currentScreen = QGuiAppCurrentScreen().currentScreen();
     currentScreen->grabWindow(QApplication::desktop()->winId(), 0, 0, 1, 1);
 

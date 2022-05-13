@@ -164,6 +164,7 @@ static QMap<QString, QSharedPointer<KeySequence>> recognizedShortcuts = {
     SHORTCUT("TYPE_DELETE_CURRENT_TOOL" ,   "Backspace"             ),
     SHORTCUT("TAKE_SCREENSHOT"          ,   "Ctrl+Shift+X"          ),
     SHORTCUT("SCREENSHOT_HISTORY"       ,   "Alt+Shift+X"           ),
+    SHORTCUT("UPLOAD_FILE"              ,   "Ctrl+Shift+Z"          ),
 #else
     SHORTCUT("TYPE_DELETE_CURRENT_TOOL" ,   "Delete"                ),
 #endif

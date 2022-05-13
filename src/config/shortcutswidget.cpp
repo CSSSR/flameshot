@@ -192,6 +192,7 @@ void ShortcutsWidget::loadShortcuts()
 #if defined(Q_OS_MACOS)
     appendShortcut("TAKE_SCREENSHOT", "Capture screen");
     appendShortcut("SCREENSHOT_HISTORY", "Screenshot history");
+    appendShortcut("UPLOAD_FILE", "Upload file");
 #elif defined(Q_OS_WIN)
     m_shortcuts << (QStringList() << "" << QObject::tr("Screenshot history")
                                   << "Shift+Print Screen");

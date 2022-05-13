@@ -112,6 +112,7 @@ private:
     QNetworkAccessManager* m_NetworkAM;
 #if (defined(Q_OS_MAC) || defined(Q_OS_MAC64) || defined(Q_OS_MACOS) ||        \
      defined(Q_OS_MACX))
+    QHotkey* m_HotkeyFileUpload;
     QHotkey* m_HotkeyScreenshotCapture;
     QHotkey* m_HotkeyScreenshotHistory;
 #endif
