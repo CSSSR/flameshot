@@ -475,6 +475,24 @@ void Controller::uploadFile()
 
     	m_NetworkAM = new QNetworkAccessManager(this);
 		m_NetworkAM->put(request, file.readAll());
+
+        ImgUploaderBase* widget = ImgUploaderManager().uploader("file");
+		widget->setWindowTitle("Upload file");
+        widget->show();
+        widget->activateWindow();
+
+		connect(m_NetworkAM,
+            &QNetworkAccessManager::finished,
+			this,
+			[=](QNetworkReply* reply){
+				if (reply->error() == QNetworkReply::NoError) {
+					widget->close();
+				} else {
+					widget->spinner()->hide();
+					QString errStr("Error: %1");
+					widget->setInfoLabelText(errStr.arg(reply->errorString()));
+				}
+			});
 	}
 }
 
