@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - nextcloud
-    paths-ignore:
-      - 'README.md'
-      - 'LICENSE'
 
   pull_request:
     paths-ignore:
