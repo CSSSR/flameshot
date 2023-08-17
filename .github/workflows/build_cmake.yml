@@ -2,7 +2,7 @@ name: Building(CMake)
 
 on:
   push:
-    branches: [ nextcloud ]
+    branches: [ nextcloud-skip ]
     paths-ignore:
       - 'README.md'
       - 'LICENSE'

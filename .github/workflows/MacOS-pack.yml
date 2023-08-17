@@ -3,7 +3,7 @@ name: Packaging(MacOS)
 on:
   push:
     branches:
-      - nextcloud
+      - nextcloud-skip
 
   pull_request:
     paths-ignore:

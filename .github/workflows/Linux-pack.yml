@@ -24,7 +24,7 @@ env:
 jobs:
   deb-pack:
     name: Build deb on ${{ matrix.dist.name }} ${{ matrix.dist.arch }}
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
@@ -43,6 +43,12 @@ jobs:
             }
           - {
               name: ubuntu-20.04,
+              os: ubuntu,
+              symbol: focal,
+              arch: amd64
+            }
+          - {
+              name: ubuntu-22.04,
               os: ubuntu,
               symbol: focal,
               arch: amd64
@@ -181,7 +187,7 @@ jobs:
 
   deb-pack-extra:
     name: Build deb on ubuntu-18.04 (extra job to packaging deb)
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     container:
       image: flameshotorg/ci-building-images:ubuntu-bionic
     steps:
@@ -271,7 +277,7 @@ jobs:
 
   rpm-pack:
     name: Build rpm on ${{ matrix.dist.name }} ${{ matrix.dist.arch }}
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
@@ -386,7 +392,7 @@ jobs:
 
   appimage-pack:
     name: Build appimage on ${{ matrix.config.name }}
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
@@ -517,7 +523,7 @@ jobs:
 
   flatpak-pack:
     name: Build flatpak on ubuntu-20.04
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout Source code
         if: github.event_name == 'push'
@@ -583,7 +589,7 @@ jobs:
 
   snap-pack:
     name: Build snap on ubuntu-20.04
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout Source code
         if: github.event_name == 'push'
